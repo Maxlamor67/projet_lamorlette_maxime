@@ -51,6 +51,7 @@
       <div class="form-group">
         <label for="telephone">Téléphone</label>
         <input type="text" id="telephone" name="telephone" required>
+        <span id="telephone-error" class="field-error"></span>
       </div>
 
       <div class="form-group">
@@ -58,14 +59,12 @@
         <input type="date" id="date-naissance" name="date-naissance" required>
       </div>
 
-      <!-- Zone d'affichage des erreurs -->
       <p id="error-message" class="error-message"></p>
 
       <button type="submit">S'inscrire</button>
     </form>
   </div>
 
-  <!-- Page récapitulative, cachée au départ -->
   <div class="container hidden" id="recap-container">
     <h1>Récapitulatif de votre inscription</h1>
 

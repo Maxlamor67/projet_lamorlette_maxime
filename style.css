@@ -81,6 +81,19 @@ button:hover {
   min-height: 18px;
 }
 
+/* Message d'erreur affiché juste sous un champ */
+.field-error {
+  display: block;
+  color: #d9534f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Bordure rouge sur un champ invalide */
+input.invalid {
+  border-color: #d9534f;
+}
+
 /* Page récapitulative */
 #recap-list {
   list-style: none;

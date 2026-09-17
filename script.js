@@ -4,13 +4,39 @@ const errorMessage = document.getElementById('error-message');
 const formContainer = document.getElementById('form-container');
 const recapContainer = document.getElementById('recap-container');
 const recapList = document.getElementById('recap-list');
+const telephoneInput = document.getElementById('telephone');
+const telephoneError = document.getElementById('telephone-error');
+
+// Vérifie le champ téléphone et affiche/efface le message en dessous.
+// Renvoie true si le numéro est valide, false sinon.
+function verifierTelephone() {
+  const telephone = telephoneInput.value.trim();
+  const telephoneChiffres = telephone.replace(/\D/g, '');
+  const telephoneRegex = /^[0-9\s.\-]+$/;
+
+  const estValide = telephone !== '' &&
+    telephoneRegex.test(telephone) &&
+    telephoneChiffres.length === 10;
+
+  if (!estValide) {
+    telephoneError.textContent = 'Le numéro doit contenir 10 chiffres, merci de le corriger.';
+    telephoneInput.classList.add('invalid');
+  } else {
+    telephoneError.textContent = '';
+    telephoneInput.classList.remove('invalid');
+  }
+
+  return estValide;
+}
+
+// "blur" = dès qu'on quitte le champ (on clique/tabule ailleurs)
+telephoneInput.addEventListener('blur', verifierTelephone);
 
 // On écoute la soumission du formulaire
 form.addEventListener('submit', function (event) {
   // On empêche le rechargement de la page
   event.preventDefault();
 
-  // On efface l'ancien message d'erreur
   errorMessage.textContent = '';
 
   // Récupération des valeurs saisies
@@ -24,28 +50,34 @@ form.addEventListener('submit', function (event) {
   const telephone = document.getElementById('telephone').value.trim();
   const dateNaissance = document.getElementById('date-naissance').value;
 
-  // 1) Vérifier que tous les champs sont remplis
+  // Vérifie que tous les champs sont remplis
   if (!login || !password || !confirmPassword || !nom || !prenom ||
       !adresse || !email || !telephone || !dateNaissance) {
     errorMessage.textContent = 'Veuillez remplir tous les champs.';
     return;
   }
 
-  // 2) Vérifier que l'email est valide (expression régulière simple)
+  // Vérifie que l'email est valide 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     errorMessage.textContent = "L'adresse email n'est pas valide.";
     return;
   }
 
-  // 3) Vérifier que le mot de passe et la confirmation correspondent
+  // Vérifie que le mot de passe et la confirmation correspondent
   if (password !== confirmPassword) {
     errorMessage.textContent = 'Les mots de passe ne correspondent pas.';
     return;
   }
 
+  // Vérifie que le numéro de téléphone est valide
+  if (!verifierTelephone()) {
+    errorMessage.textContent = 'Le numéro de téléphone doit contenir 10 chiffres.';
+    return;
+  }
+
   // Si tout est correct : on construit le récapitulatif
-  // (on n'affiche pas le mot de passe, comme demandé)
+  // (on n'affiche pas le mot de passe)
   const infos = [
     { label: 'Login', valeur: login },
     { label: 'Nom', valeur: nom },
@@ -56,7 +88,7 @@ form.addEventListener('submit', function (event) {
     { label: 'Date de naissance', valeur: dateNaissance }
   ];
 
-  // On vide la liste au cas où (utile si l'utilisateur revient en arrière)
+  // On vide la liste au cas où)
   recapList.innerHTML = '';
 
   infos.forEach(function (info) {
