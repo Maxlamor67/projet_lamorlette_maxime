@@ -1,0 +1,65 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate class="signup">
+  <h2>Inscription</h2>
+
+  <!-- Login -->
+  <label for="login">Login</label>
+  <input id="login" type="text" name="login"
+         [(ngModel)]="user.login" #login="ngModel" required />
+  @if (login.invalid && (login.dirty || login.touched)) {
+    <small class="error">Le login est requis.</small>
+  }
+
+  <!-- Mot de passe -->
+  <label for="password">Mot de passe</label>
+  <input id="password" type="password" name="password"
+         [(ngModel)]="user.password" #password="ngModel" required />
+  @if (password.invalid && (password.dirty || password.touched)) {
+    <small class="error">Le mot de passe est requis.</small>
+  }
+
+  <!-- Confirmation -->
+  <label for="confirm">Confirmation du mot de passe</label>
+  <input id="confirm" type="password" name="confirmPassword"
+         [(ngModel)]="user.confirmPassword" #confirm="ngModel" required />
+  @if (confirm.invalid && (confirm.dirty || confirm.touched)) {
+    <small class="error">La confirmation est requise.</small>
+  }
+  @if (confirm.valid && !passwordsMatch) {
+    <small class="error">Les mots de passe ne correspondent pas.</small>
+  }
+
+  <!-- Nom -->
+  <label for="nom">Nom</label>
+  <input id="nom" type="text" name="nom"
+         [(ngModel)]="user.nom" #nom="ngModel" required />
+  @if (nom.invalid && (nom.dirty || nom.touched)) {
+    <small class="error">Le nom est requis.</small>
+  }
+
+  <!-- Prénom -->
+  <label for="prenom">Prénom</label>
+  <input id="prenom" type="text" name="prenom"
+         [(ngModel)]="user.prenom" #prenom="ngModel" required />
+  @if (prenom.invalid && (prenom.dirty || prenom.touched)) {
+    <small class="error">Le prénom est requis.</small>
+  }
+
+  <!-- Email -->
+  <label for="email">Email</label>
+  <input id="email" type="email" name="email"
+         [(ngModel)]="user.email" #email="ngModel" required email />
+  @if (email.errors?.['required'] && (email.dirty || email.touched)) {
+    <small class="error">L'email est requis.</small>
+  }
+  @if (email.errors?.['email'] && (email.dirty || email.touched)) {
+    <small class="error">Format d'email invalide.</small>
+  }
+
+  <button type="submit" [disabled]="f.invalid || !passwordsMatch">
+    S'inscrire
+  </button>
+
+  @if (submitted) {
+    <p class="success">Inscription réussie, bienvenue {{ user.prenom }} !</p>
+  }
+</form>
