@@ -1,0 +1,81 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="pollution-form">
+  <h2>Déclarer une pollution</h2>
+
+  <label for="titre">Titre de la pollution</label>
+  <input id="titre" type="text" formControlName="titre" />
+  @if (f.titre.invalid && f.titre.touched) {
+    <small class="error">Le titre est requis.</small>
+  }
+
+  <label for="type">Type de pollution</label>
+  <select id="type" formControlName="type">
+    <option value="" disabled>-- Choisir --</option>
+    @for (t of types; track t) {
+      <option [value]="t">{{ t }}</option>
+    }
+  </select>
+  @if (f.type.invalid && f.type.touched) {
+    <small class="error">Le type est requis.</small>
+  }
+
+  <label for="description">Description</label>
+  <textarea id="description" rows="4" formControlName="description"></textarea>
+  @if (f.description.invalid && f.description.touched) {
+    <small class="error">La description est requise.</small>
+  }
+
+  <label for="date">Date de l'observation</label>
+  <input id="date" type="date" formControlName="dateObservation" />
+  @if (f.dateObservation.touched) {
+    @if (f.dateObservation.errors?.['required']) {
+      <small class="error">La date est requise.</small>
+    }
+    @if (f.dateObservation.errors?.['dateInvalide']) {
+      <small class="error">Date invalide.</small>
+    }
+    @if (f.dateObservation.errors?.['dateFuture']) {
+      <small class="error">La date ne peut pas être dans le futur.</small>
+    }
+  }
+
+  <label for="lieu">Lieu</label>
+  <input id="lieu" type="text" formControlName="lieu" />
+  @if (f.lieu.invalid && f.lieu.touched) {
+    <small class="error">Le lieu est requis.</small>
+  }
+
+  <div class="row">
+    <div>
+      <label for="lat">Latitude</label>
+      <input id="lat" type="number" step="any" formControlName="latitude" />
+      @if (f.latitude.touched) {
+        @if (f.latitude.errors?.['required']) {
+          <small class="error">La latitude est requise.</small>
+        }
+        @if (f.latitude.errors?.['min'] || f.latitude.errors?.['max']) {
+          <small class="error">Latitude entre -90 et 90.</small>
+        }
+      }
+    </div>
+    <div>
+      <label for="lng">Longitude</label>
+      <input id="lng" type="number" step="any" formControlName="longitude" />
+      @if (f.longitude.touched) {
+        @if (f.longitude.errors?.['required']) {
+          <small class="error">La longitude est requise.</small>
+        }
+        @if (f.longitude.errors?.['min'] || f.longitude.errors?.['max']) {
+          <small class="error">Longitude entre -180 et 180.</small>
+        }
+      }
+    </div>
+  </div>
+
+  <label for="photo">Photo (URL, optionnel)</label>
+  <input id="photo" type="text" formControlName="photoUrl" placeholder="https://..." />
+  @if (f.photoUrl.errors?.['pattern']) {
+    <small class="error">L'URL doit commencer par http:// ou https://.</small>
+  }
+
+  <button type="submit">Déclarer</button>
+</form>
