@@ -1,0 +1,5 @@
+@if (declaration) {
+  <app-recap [pollution]="declaration" (nouvelle)="declaration = null" />
+} @else {
+  <app-pollution-form (declarer)="onDeclarer($event)" />
+}
