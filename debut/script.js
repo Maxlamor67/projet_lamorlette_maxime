@@ -77,7 +77,6 @@ form.addEventListener('submit', function (event) {
   }
 
   // Si tout est correct : on construit le récapitulatif
-  // (on n'affiche pas le mot de passe)
   const infos = [
     { label: 'Login', valeur: login },
     { label: 'Nom', valeur: nom },
