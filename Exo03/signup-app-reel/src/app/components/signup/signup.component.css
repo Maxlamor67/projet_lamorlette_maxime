@@ -1,0 +1,8 @@
+form div {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  margin-bottom: 1rem;
+}
+.error { color: #c0392b; }
+.success { color: #27ae60; }
