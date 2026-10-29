@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://mon-projet-api.onrender.com'
+  apiUrl: 'https://api-reel-ccbe.onrender.com'
 };
