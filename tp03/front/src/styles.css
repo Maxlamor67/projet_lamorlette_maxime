@@ -1,0 +1,80 @@
+:root {
+  --vert: #16a34a; --vert-fonce: #15803d; --bleu: #0ea5e9;
+  --rouge: #ef4444; --fond: #f1f5f9; --texte: #0f172a; --gris: #64748b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+  background: var(--fond); color: var(--texte);
+}
+
+/* En-tête */
+.header {
+  background: linear-gradient(135deg, #15803d, #0ea5e9);
+  color: white; padding: 28px 20px; text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+.header h1 { margin: 0; font-size: 2rem; }
+.header p { margin: 6px 0 0; opacity: .9; }
+.container { max-width: 1000px; margin: 0 auto; padding: 25px 15px 50px; }
+
+/* Cartes */
+.card {
+  background: white; border-radius: 14px; padding: 20px;
+  box-shadow: 0 2px 10px rgba(15,23,42,.08);
+}
+.card h2 { margin-top: 0; }
+
+/* Champs */
+input, select {
+  padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 10px;
+  font-size: 1rem; background: #f8fafc; outline: none; width: 100%;
+  transition: .2s;
+}
+input:focus, select:focus {
+  border-color: var(--vert); box-shadow: 0 0 0 3px rgba(22,163,74,.2); background: white;
+}
+label { font-size: .85rem; color: var(--gris); font-weight: 600; }
+
+.filters, .form-grid {
+  display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+/* Boutons */
+.btn {
+  display: inline-block; padding: 10px 18px; border: none; border-radius: 10px;
+  font-size: .95rem; font-weight: 600; cursor: pointer; text-decoration: none;
+  background: var(--vert); color: white; transition: .2s;
+}
+.btn:hover { background: var(--vert-fonce); transform: translateY(-2px); }
+.btn.danger { background: #fee2e2; color: var(--rouge); }
+.btn.danger:hover { background: var(--rouge); color: white; }
+.btn.ghost { background: #e0f2fe; color: #0369a1; }
+.btn.ghost:hover { background: var(--bleu); color: white; }
+
+/* Grille de pollutions */
+.count { color: var(--gris); margin: 22px 0 10px; font-weight: 600; }
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.item { transition: .25s; border-top: 5px solid var(--vert); }
+.item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(15,23,42,.15); }
+.item h3 { margin: 10px 0 6px; }
+.item .lieu { color: var(--gris); margin: 0 0 8px; }
+.item .desc { margin: 0 0 16px; line-height: 1.4; }
+.actions { display: flex; gap: 8px; }
+
+/* Badges par type */
+.badge {
+  display: inline-block; padding: 4px 12px; border-radius: 999px;
+  font-size: .78rem; font-weight: 700; background: #e2e8f0;
+}
+.badge.plastique { background: #fef3c7; color: #b45309; }
+.badge.air       { background: #e0e7ff; color: #4338ca; }
+.badge.eau       { background: #cffafe; color: #0e7490; }
+.badge.sol       { background: #ffedd5; color: #c2410c; }
+
+.empty { text-align: center; color: var(--gris); padding: 30px; }
+.form { margin-top: 35px; }
+.back { display: inline-block; margin-bottom: 15px; color: #0369a1; font-weight: 600; text-decoration: none; }
+.back:hover { text-decoration: underline; }
+.ok { margin-left: 12px; color: var(--vert-fonce); font-weight: 600; }
+.field { margin-bottom: 14px; }

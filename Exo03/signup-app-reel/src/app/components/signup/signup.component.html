@@ -1,0 +1,38 @@
+<h2>Inscription</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Nom d'utilisateur</label>
+    <input id="username" type="text" formControlName="username" />
+    @if (form.controls.username.touched && form.controls.username.invalid) {
+      <small class="error">3 caractères minimum.</small>
+    }
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="error">Email invalide.</small>
+    }
+  </div>
+
+  <div>
+    <label for="password">Mot de passe</label>
+    <input id="password" type="password" formControlName="password" />
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <small class="error">6 caractères minimum.</small>
+    }
+  </div>
+
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Envoi...' : "S'inscrire" }}
+  </button>
+</form>
+
+@if (successMessage()) {
+  <p class="success">{{ successMessage() }}</p>
+}
+@if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+}
