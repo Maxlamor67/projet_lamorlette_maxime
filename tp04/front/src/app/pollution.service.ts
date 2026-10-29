@@ -5,7 +5,7 @@ import { Pollution } from './pollution';
 
 @Injectable({ providedIn: 'root' })
 export class PollutionService {
-  private url = environment.apiUrl + '/pollutions';
+  private url = environment.apiUrl + '/api/pollutions';
 
   constructor(private http: HttpClient) {}
 
