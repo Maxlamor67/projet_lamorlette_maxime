@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors, { CorsOptions } from "cors";
 import db from "./models";
 import initRoutes from "./routes";
+import { hashPassword } from "./auth";
 
 const app: Application = express();
 
@@ -46,6 +47,11 @@ db.sequelize
           { ville: "Nantes", polluant: "CO2", valeur: 12.0, date: "2026-10-18", description: "Conditions atmosphériques favorables" }
         ]);
         console.log("Jeu de données initial pour la table pollution inséré avec succès.");
+      }
+      const usersCount = await db.users.count();
+      if (usersCount === 0) {
+        await db.users.create({ username: "admin", passwordHash: await hashPassword("admin123") });
+        console.log("Utilisateur initial créé avec succès.");
       }
     } catch (seedErr: unknown) {
       console.warn("Remarque : impossible d'insérer les données d'initialisation :", seedErr);

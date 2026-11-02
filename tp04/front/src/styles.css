@@ -26,6 +26,11 @@ body {
 }
 
 .header-inner, .container { max-width: 1040px; margin: 0 auto; }
+.nav { display: flex; gap: 18px; margin-bottom: 28px; }
+.nav a { color: white; font-weight: 700; text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+.nav-button { padding: 0; color: white; background: transparent; border: 0; font: inherit; font-weight: 700; cursor: pointer; }
+.nav-button:hover { text-decoration: underline; }
 .header h1 { margin: 8px 0 6px; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -.04em; }
 .header p:not(.eyebrow) { margin: 0; color: #dcecf2; }
 .container { padding: 28px 18px 60px; }
@@ -107,6 +112,9 @@ label { display: block; margin-bottom: 6px; color: var(--muted); font-size: .82r
 .ok { margin-left: 12px; color: #28714b; font-weight: 700; }
 .status { margin: 14px 0; padding: 12px 14px; border-radius: 9px; }
 .status.error { color: #8e3030; background: #fbeaea; }
+.auth-card { max-width: 480px; margin: 0 auto; }
+.auth-card .btn { margin-top: 20px; }
+.auth-card .back { margin: 18px 0 0 14px; }
 
 @media (max-width: 600px) {
   .section-heading { flex-direction: column; gap: 4px; }

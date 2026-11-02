@@ -1,5 +1,6 @@
 import { Application, Router } from "express";
 import pollutionController from "../controllers/pollution.controllers";
+import { requireAuth } from "../auth";
 
 export default (app: Application): void => {
   const router = Router();
@@ -14,6 +15,6 @@ export default (app: Application): void => {
   router.delete("/:id", pollutionController.remove);
 
   // Exposition sous /api/pollutions et /api/pollution (singulier et pluriel)
-  app.use("/api/pollutions", router);
-  app.use("/api/pollution", router);
+  app.use("/api/pollutions", requireAuth, router);
+  app.use("/api/pollution", requireAuth, router);
 };

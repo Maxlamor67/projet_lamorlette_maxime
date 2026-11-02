@@ -8,6 +8,8 @@ npm run dev       # http://localhost:3000
 
 Les variables `DATABASE_URL` (ou `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`
 et `DB_NAME`) doivent être définies pour PostgreSQL. `DB_SSL=true` active SSL.
+Définir également `AUTH_SECRET` avec une longue valeur aléatoire pour signer les
+jetons de connexion.
 Le fichier `.env` ne doit jamais être envoyé sur Git.
 
 ## Déployer l'API sur Render
@@ -38,6 +40,16 @@ déployée, renseigner l'URL publique de l'API dans
 `front/src/environments/environment.ts`.
 
 ## Routes API
+- `GET /api/users` : lister les utilisateurs
+- `POST /api/users` : créer un utilisateur
+- `POST /api/users/login` : connecter un utilisateur avec son nom et son mot de passe
+- `GET /api/users/:id` : consulter un utilisateur
+- `PUT /api/users/:id` : modifier un utilisateur
+- `DELETE /api/users/:id` : supprimer un utilisateur
+
+Les routes `/api/pollutions` nécessitent l'en-tête `Authorization: Bearer <token>`
+retourné par la connexion. Le compte initial est `admin` avec le mot de passe
+`admin123`, à modifier en production.
 - `GET /api/pollutions` : lister les mesures
 - `GET /api/pollutions/:id` : consulter une mesure
 - `POST /api/pollutions` : créer une mesure
