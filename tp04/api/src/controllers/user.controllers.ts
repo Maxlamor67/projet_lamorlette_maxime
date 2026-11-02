@@ -22,6 +22,15 @@ const parsePassword = (body: unknown): string | null => {
   return typeof password === "string" && password.length >= 6 ? password : null;
 };
 
+const isStrongPassword = (password: string): boolean =>
+  password.length >= 8 && /[A-Z]/.test(password) && /[^A-Za-z0-9]/.test(password);
+
+const passwordsMatch = (body: unknown): boolean => {
+  if (!body || typeof body !== "object") return false;
+  const payload = body as Record<string, unknown>;
+  return payload.password === payload.passwordConfirmation;
+};
+
 const publicUser = (user: InstanceType<typeof Users>): { id: number; username: string } => ({
   id: user.id,
   username: user.username
@@ -63,8 +72,12 @@ export const create = async (req: Request, res: Response): Promise<void> => {
     res.status(400).json({ message: "Le nom d'utilisateur est obligatoire." });
     return;
   }
-  if (!password) {
-    res.status(400).json({ message: "Le mot de passe doit contenir au moins 6 caractères." });
+  if (!password || !isStrongPassword(password)) {
+    res.status(400).json({ message: "Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial." });
+    return;
+  }
+  if (!passwordsMatch(req.body)) {
+    res.status(400).json({ message: "Les mots de passe ne correspondent pas." });
     return;
   }
   try {

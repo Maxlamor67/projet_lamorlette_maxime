@@ -10,9 +10,11 @@ import { AuthService } from './auth.service';
     <header class="header">
       <div class="header-inner">
         <nav class="nav">
-          <a routerLink="/pollutions">Pollutions</a>
-          <a routerLink="/users">Utilisateurs</a>
-          <a routerLink="/login">Connexion</a>
+          <ng-container *ngIf="auth.isAuthenticated(); else disconnectedNav">
+            <a routerLink="/pollutions">Pollutions</a>
+            <a routerLink="/users">Utilisateurs</a>
+          </ng-container>
+          <ng-template #disconnectedNav><a routerLink="/login">Connexion</a></ng-template>
           <button class="nav-button" *ngIf="auth.isAuthenticated()" (click)="deconnecter()">Déconnexion</button>
         </nav>
         <p class="eyebrow">Observatoire des données</p>

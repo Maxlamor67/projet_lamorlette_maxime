@@ -113,6 +113,9 @@ label { display: block; margin-bottom: 6px; color: var(--muted); font-size: .82r
 .status { margin: 14px 0; padding: 12px 14px; border-radius: 9px; }
 .status.error { color: #8e3030; background: #fbeaea; }
 .auth-card { max-width: 480px; margin: 0 auto; }
+.register-card { max-width: 560px; }
+.register-form { display: flex; flex-direction: column; gap: 14px; }
+.password-help { margin: 14px 0 0; color: var(--muted); font-size: .85rem; line-height: 1.4; }
 .auth-card .btn { margin-top: 20px; }
 .auth-card .back { margin: 18px 0 0 14px; }
 

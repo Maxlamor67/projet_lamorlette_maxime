@@ -9,20 +9,25 @@ import { UserService } from '../user.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <section class="card">
+    <section class="card auth-card register-card">
       <p class="eyebrow">Gestion des comptes</p>
       <h2>Utilisateurs</h2>
       <div class="status error" *ngIf="erreur">{{ erreur }}</div>
-      <div class="form-grid">
+      <div class="register-form">
         <div>
           <label for="username">Nom d'utilisateur</label>
           <input id="username" [(ngModel)]="nouveau.username" placeholder="Ex : maxime">
         </div>
         <div>
           <label for="password">Mot de passe</label>
-          <input id="password" type="password" [(ngModel)]="nouveau.password" placeholder="6 caractères minimum">
+          <input id="password" type="password" [(ngModel)]="nouveau.password" placeholder="8 caractères, 1 majuscule, 1 caractère spécial">
+        </div>
+        <div>
+          <label for="password-confirmation">Confirmer le mot de passe</label>
+          <input id="password-confirmation" type="password" [(ngModel)]="nouveau.passwordConfirmation" placeholder="Retapez le mot de passe">
         </div>
       </div>
+      <p class="password-help">Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial.</p>
       <button class="btn" (click)="ajouter()" [disabled]="chargement">Créer le compte</button>
     </section>
 
@@ -64,12 +69,25 @@ export class UserListComponent implements OnInit {
   }
 
   ajouter(): void {
-    if (!this.nouveau.username.trim() || !this.nouveau.password || this.nouveau.password.length < 6) {
-      this.erreur = "Le nom d'utilisateur et un mot de passe d'au moins 6 caractères sont obligatoires.";
+    if (!this.nouveau.username.trim()) {
+      this.erreur = "Le nom d'utilisateur est obligatoire.";
+      return;
+    }
+    if (!this.nouveau.password || this.nouveau.password.length < 8 ||
+        !/[A-Z]/.test(this.nouveau.password) || !/[^A-Za-z0-9]/.test(this.nouveau.password)) {
+      this.erreur = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial.';
+      return;
+    }
+    if (this.nouveau.password !== this.nouveau.passwordConfirmation) {
+      this.erreur = 'Les mots de passe ne correspondent pas.';
       return;
     }
     this.chargement = true;
-    this.service.create({ username: this.nouveau.username.trim(), password: this.nouveau.password }).subscribe({
+    this.service.create({
+      username: this.nouveau.username.trim(),
+      password: this.nouveau.password,
+      passwordConfirmation: this.nouveau.passwordConfirmation
+    }).subscribe({
       next: () => {
         this.nouveau = { username: '' };
         this.chargement = false;
