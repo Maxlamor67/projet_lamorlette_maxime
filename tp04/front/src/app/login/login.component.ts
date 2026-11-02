@@ -16,7 +16,7 @@ import { UserService } from '../user.service';
       <label for="login-username">Nom d'utilisateur</label>
       <input id="login-username" [(ngModel)]="username" (keyup.enter)="seConnecter()" placeholder="Votre nom d'utilisateur">
       <label for="login-password">Mot de passe</label>
-      <input id="login-password" type="password" [(ngModel)]="password" (keyup.enter)="seConnecter()" placeholder="6 caractères minimum">
+      <input id="login-password" type="password" [(ngModel)]="password" (keyup.enter)="seConnecter()" placeholder="Mot de passe">
       <button class="btn" (click)="seConnecter()" [disabled]="chargement">Se connecter</button>
       <a class="back" routerLink="/users">Créer un compte</a>
     </section>
