@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Pollution } from '../pollution';
 import { PollutionService } from '../pollution.service';
+import { PollutionLevelPipe } from '../pipe/PollutionLevelPipe';
+import { HighlightPollutionDirective } from '../Directive/HighlightPollutionDirective';
 
 @Component({
   selector: 'app-pollution-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
   template: `
     <section class="card filter-card">
       <div class="section-heading">
@@ -43,6 +45,7 @@ import { PollutionService } from '../pollution.service';
         </div>
         <h3>{{ p.ville }}</h3>
         <p class="value">{{ p.valeur }} <span>µg/m³</span></p>
+        <p class="pollution-level" [appHighlightPollution]="p.valeur | pollutionLevel">Niveau : {{ p.valeur | pollutionLevel }}</p>
         <p class="desc">{{ p.description || 'Aucune description renseignée.' }}</p>
         <div class="actions">
           <a class="btn ghost" [routerLink]="['/pollutions', p.id]">Consulter</a>

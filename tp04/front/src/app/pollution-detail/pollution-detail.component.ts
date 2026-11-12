@@ -4,16 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Pollution } from '../pollution';
 import { PollutionService } from '../pollution.service';
+import { PollutionLevelPipe } from '../pipe/PollutionLevelPipe';
+import { HighlightPollutionDirective } from '../Directive/HighlightPollutionDirective';
 
 @Component({
   selector: 'app-pollution-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
   template: `
     <a class="back" routerLink="/pollutions">Retour à la liste</a>
     <section class="card" *ngIf="pollution">
       <p class="eyebrow">Détail de la mesure</p>
       <h2>{{ pollution.ville }}</h2>
+      <p class="pollution-level" [appHighlightPollution]="pollution.valeur | pollutionLevel">Niveau : {{ pollution.valeur | pollutionLevel }}</p>
       <div class="status error" *ngIf="erreur">{{ erreur }}</div>
       <div class="form-grid">
         <div class="field"><label for="detail-ville">Ville</label><input id="detail-ville" [(ngModel)]="pollution.ville"></div>
