@@ -123,3 +123,5 @@ label { display: block; margin-bottom: 6px; color: var(--muted); font-size: .82r
   .section-heading { flex-direction: column; gap: 4px; }
   .actions { flex-wrap: wrap; }
 }
+
+.pollution-level { display: inline-block; margin: 8px 0 14px; font-weight: 800; }
